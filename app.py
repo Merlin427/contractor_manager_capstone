@@ -1,18 +1,26 @@
 import os
-from flask import Flask, request, abort, jsonify, render_template
+from flask import Flask, request, abort, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
+from flask_migrate import Migrate
+from flask_moment import Moment
 
-def create_app(test_config=None):
-  # create and configure the app
-  app = Flask(__name__)
-  CORS(app)
+from models import *
 
-  return app
 
-APP = create_app()
+app = Flask(__name__)
+moment = Moment(app)
+app.config.from_object('config')
+db.init_app(app)
+CORS(app)
+migrate = Migrate(app, db)
 
+
+
+@app.route('/')
+def index():
+    return 'hello'
 
 
 if __name__ == '__main__':
-    APP.run(host='0.0.0.0', port=8080,)
+    APP.run(host='0.0.0.0', port=8080, debug=True)
