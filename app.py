@@ -23,9 +23,9 @@ def index():
 
 @app.route('/contractors', methods=[GET])
 def contractors():
-    contractors=Contractors.query.all()
+    contractors=Contractor.query.all()
     data=[]
-    
+
 
 
 if __name__ == '__main__':
