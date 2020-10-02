@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, abort, jsonify
+from flask import Flask, request, abort, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from flask_migrate import Migrate
@@ -19,7 +19,13 @@ migrate = Migrate(app, db)
 
 @app.route('/')
 def index():
-    return 'hello'
+    return render_template('pages/home.html')
+
+@app.route('/contractors', methods=[GET])
+def contractors():
+    contractors=Contractors.query.all()
+    data=[]
+    
 
 
 if __name__ == '__main__':

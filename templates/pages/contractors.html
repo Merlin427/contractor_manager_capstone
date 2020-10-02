@@ -1,0 +1,9 @@
+<h3>Available contractors</h3>
+<ul>
+  {% for contractor in contractors %}
+  <li>
+    <a href="/contractors/{{ contractor.id }}">
+      <h5>{{ contractor.name }}</h5>
+    </a>
+  </li>
+</ul>
