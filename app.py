@@ -33,6 +33,27 @@ def contractors():
 
     return render_template('pages/contractors.html', contractors=data)
 
+
+
+@app.route('/contractors/<int:contractor_id>')
+def show_contractor(contractor_id):
+    contractor = Contractor.query.get(contractor_id)
+
+    if not contractor:
+        return redirect(url_for('index'))
+
+    else:
+
+        data={
+        "id": contractor_id,
+        "name": contractor.name,
+        "phone": contractor.phone
+        }
+
+    return render_template('pages/show_contractor.html', contractor=data)
+
+
+
 @app.route('/clients', methods=['GET'])
 def clients():
     clients=Client.query.all()
