@@ -33,7 +33,30 @@ def contractors():
 
     return render_template('pages/contractors.html', contractors=data)
 
+@app.route('/clients', methods=['GET'])
+def clients():
+    clients=Client.query.all()
+    data=[]
+    for client in clients:
+        data.append({
+        "id": client.id,
+        "name": client.name
+        })
 
+    return render_template('pages/clients.html', clients=data)
+'''
+@app.route('/contractors', methods=['GET'])
+def contractors():
+    contractors=Contractor.query.all()
+    data=[]
+    for contractor in contractors:
+        data.append({
+        "id": contractor.id,
+        "name": contractor.name
+        })
+
+    return render_template('pages/contractors.html', contractors=data)
+'''
 
 if __name__ == '__main__':
     APP.run(host='0.0.0.0', port=8080, debug=True)

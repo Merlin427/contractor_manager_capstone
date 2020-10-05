@@ -1,0 +1,10 @@
+<h3>Clients</h3>
+<ul>
+  {% for client in clients %}
+  <li>
+    <a href="/clients/{{ client.id }}">
+      <h5>{{ client.name }}</h5>
+    </a>
+  </li>
+  {% endfor %}
+</ul>
