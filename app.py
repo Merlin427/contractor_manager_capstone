@@ -25,6 +25,11 @@ def index():
 def contractors():
     contractors=Contractor.query.all()
     data=[]
+    for contractor in contractors:
+        data.append({
+        "id": contractor.id,
+        "name": contractor.name
+        })
 
     return render_template('pages/contractors.html', contractors=data)
 
