@@ -2,3 +2,10 @@ body {
   background: #efefef;
   font-family: arial;
 }
+
+.btn-default {
+    border: none;
+    background-color: #dde2e7;
+    background-image: linear-gradient(#dde2e7,#dde2e7);
+    color: #444;
+}

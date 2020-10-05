@@ -21,10 +21,12 @@ migrate = Migrate(app, db)
 def index():
     return render_template('pages/home.html')
 
-@app.route('/contractors', methods=[GET])
+@app.route('/contractors', methods=['GET'])
 def contractors():
     contractors=Contractor.query.all()
     data=[]
+
+    return render_template('pages/contractors.html', contractors=data)
 
 
 
