@@ -96,7 +96,8 @@ def show_client(client_id):
         data={
         "id": client_id,
         "name": client.name,
-        "phone": client.phone
+        "phone": client.phone,
+        "address": client.address
         }
 
     return render_template('pages/show_clients.html', client=data)
