@@ -8,6 +8,8 @@ from datetime import date, datetime, time
 from babel.dates import format_date, format_datetime, format_time
 import dateutil.parser
 import babel
+from flask_wtf import Form
+from forms import *
 
 from models import *
 
@@ -69,7 +71,10 @@ def show_contractor(contractor_id):
 
     return render_template('pages/show_contractor.html', contractor=data)
 
-
+@app.route('/contractors/create', methods=['GET'])
+def add_contractor_form():
+  form = ContractorForm()
+  return render_template('forms/new_contractor.html', form=form)
 
 @app.route('/clients', methods=['GET'])
 def clients():
@@ -103,6 +108,12 @@ def show_client(client_id):
     return render_template('pages/show_clients.html', client=data)
 
 
+@app.route('/clients/create', methods=['GET'])
+def add_client_form():
+  form = ClientForm()
+  return render_template('forms/new_client.html', form=form)
+
+
 @app.route('/jobs', methods=['GET'])
 def jobs():
     jobs=Job.query.all()
@@ -117,6 +128,11 @@ def jobs():
         })
 
     return render_template('pages/jobs.html', jobs=data)
+
+@app.route('/jobs/create', methods=['GET'])
+def add_job_form():
+  form = JobForm()
+  return render_template('forms/new_job.html', form=form)
 
 
 if __name__ == '__main__':

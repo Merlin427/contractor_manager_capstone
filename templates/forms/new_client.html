@@ -1,0 +1,26 @@
+{% block title %}New Client{% endblock %}
+
+{% block content %}
+
+<div >
+  <form class="" method="post">
+    <h3>Add a new client</h3>
+    <p>
+      {{form.name.label}} <br>
+      {{form.name(size=30)}}
+    </p>
+    <p>
+      {{form.address.label}} <br>
+      {{form.address(size=120)}}
+    </p>
+    <p>
+      {{form.phone.label}} <br>
+      {{form.phone(size=30)}}
+    </p>
+    <input type="submit" value="Add Client">
+
+  </form>
+</div>
+
+{% endblock %}
+<a href="/">Home</a>

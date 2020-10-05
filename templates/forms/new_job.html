@@ -1,0 +1,26 @@
+{% block title %}Schedule a new Job{% endblock %}
+
+{% block content %}
+
+<div >
+  <form class="" method="post">
+    <h3>Schedule a new Job</h3>
+    <p>
+      {{form.client_id.label}} <br>
+      {{form.client_id(size=30)}}
+    </p>
+    <p>
+      {{form.contractor_id.label}} <br>
+      {{form.contractor_id(size=30)}}
+    </p>
+    <p>
+      {{form.start_time.label}} <br>
+      {{form.start_time(size=30)}}
+    </p>s
+    <input type="submit" value="Add Job">
+
+  </form>
+</div>
+
+{% endblock %}
+<a href="/">Home</a>

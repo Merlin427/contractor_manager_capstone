@@ -5,15 +5,15 @@ from wtforms.validators import DataRequired, AnyOf, URL, Optional
 
 class JobForm(FlaskForm):
     client_id = StringField(
-        'client_id'
+        'Client ID'
     )
 
     contractor_id = StringField(
-        'contractor_id'
+        'Contractor ID'
     )
 
     start_time = DateTimeField(
-        'start_time',
+        'Appointment date and time',
         validators=[DataRequired()],
         default= datetime.today()
     )
@@ -23,11 +23,11 @@ class JobForm(FlaskForm):
 
 class ContractorForm(FlaskForm):
     name = StringField(
-        'name' validators=[DataRequired()]
+        'First and Last name', validators=[DataRequired()]
     )
 
     phone = StringField(
-        'phone',
+        'Phone Number',
         validators=[DataRequired()]
     )
 
@@ -36,16 +36,16 @@ class ContractorForm(FlaskForm):
 
 class ClientForm(FlaskForm):
     name = StringField(
-        'name',
+        'Customer Name',
         validators=[DataRequired()]
     )
 
     address = StringField(
-        'name',
+        'Physical Address',
         validators=[DataRequired()]
     )
 
     phone = StringField(
-        'phone',
+        'Phone Number',
         validators=[DataRequired()]
     )
