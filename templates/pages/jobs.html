@@ -1,0 +1,20 @@
+<title>Cotractor Pro</title>
+<link rel="stylesheet" href="/static/css/main.css">
+<h3>Jobs</h3>
+<ul>
+  {% for job in jobs %}
+  <li>
+    <a href="/jobs/{{ job.id }}">
+      <div>
+
+      <h5>{{ job.client_name }}</h5>
+      <h5>{{ job.client_address }}</h5>
+      <h5>CONTRACTOR: {{ job.contractor_name }}</h5>
+      <h5>{{ job.start_time|datetime('full') }}</h5>
+
+      </div>
+
+    </a>
+  </li>
+  {% endfor %}
+</ul>
