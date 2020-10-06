@@ -278,6 +278,60 @@ def delete_client(client_id):
         return redirect(url_for('clients'))
 
 
+@app.route('/clients/<int:client_id>/edit', methods=['GET'])
+def edit_client(client_id):
+
+    client= Client.query.get(client_id)
+
+    if not client:
+        return redirect(url_for('index'))
+
+    else:
+        form = ClientForm(obj=client)
+
+    client = {
+        "id": client.id,
+        "name": client.name,
+        "phone": client.phone,
+        "address": client.address
+    }
+    return render_template('forms/edit_client.html', form=form, client=client)
+
+
+
+@app.route('/clients/<int:client_id>/edit', methods=['POST'])
+def edit_client_submission(client_id):
+    form = ClientForm(request.form, meta={"csrf": False})
+
+    name = form.name.data.strip()
+    phone = form.phone.data.strip()
+    address = form.address.data.strip()
+
+    if not form.validate():
+        abort(404)
+
+    else:
+        update_error = False
+        try:
+            client=Client.query.get(client_id)
+            client.name = name
+            client.phone = phone
+            client.address = address
+
+
+            db.session.commit()
+
+        except Exception as e:
+            update_error = True
+            print(f'Exception "{e}" in add_client()')
+            db.session.rollback()
+        finally:
+            db.session.close()
+
+        if not update_error:
+            return redirect(url_for('clients'))
+
+
 @app.route('/jobs', methods=['GET'])
 def jobs():
     jobs=Job.query.all()
