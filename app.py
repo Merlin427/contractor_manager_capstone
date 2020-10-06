@@ -178,7 +178,7 @@ def add_client():
 
     name = form.name.data.strip()
     phone = form.phone.data.strip()
-    address = form.phone.data.strip()
+    address = form.address.data.strip()
 
     if not form.validate():
         abort(404)
