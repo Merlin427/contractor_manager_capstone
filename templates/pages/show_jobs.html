@@ -1,0 +1,28 @@
+{% block title %}{{ job.client.name }} | Client{% endblock %}
+{% block content %}
+
+<h1>
+  {{ job.client.name }}
+</h1>
+<p>
+  ID: {{ job.client.id }}
+</p>
+<p>
+  PHONE: {{ job.client.phone }}
+</p>
+<p>
+  ADDRESS: {{ job.client.address }}
+</p>
+<p>
+  CONTRACTOR: {{ job.contractor.name }}
+</p>
+<p>
+  APPOINTMENT: {{ job.start_time }}
+</p>
+<div>
+  <a href="/jobs"><button type="button" name="Edit job">Edit Job</button></a>
+  <a href="/jobs"><button type="button" name="Delete job">Delete Job</button></a>
+
+</div>
+{% endblock %}
+<a href="/">Home</a>

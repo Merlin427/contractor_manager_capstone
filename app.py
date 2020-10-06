@@ -109,6 +109,29 @@ def add_contractor():
             return redirect(url_for('contractors'))
 
 
+@app.route('/contractors/<int:contractor_id>/delete', methods=['GET'])
+def delete_contractor(contractor_id):
+    error = False
+    contractor = Contractor.query.get(contractor_id)
+
+    try:
+        db.session.delete(contractor)
+        db.session.commit()
+    except:
+        db.session.rollback()
+        error = True
+
+    finally:
+        db.session.close()
+
+    if error:
+        print("error in delete_contractor")
+        abort(500)
+
+    else:
+        return redirect(url_for('contractors'))
+
+
 
 @app.route('/clients', methods=['GET'])
 def clients():
@@ -180,12 +203,36 @@ def add_client():
             return redirect(url_for('clients'))
 
 
+@app.route('/clients/<int:client_id>/delete', methods=['GET'])
+def delete_client(client_id):
+    error = False
+    client = Client.query.get(client_id)
+
+    try:
+        db.session.delete(client)
+        db.session.commit()
+    except:
+        db.session.rollback()
+        error = True
+
+    finally:
+        db.session.close()
+
+    if error:
+        print("error in delete_client")
+        abort(500)
+
+    else:
+        return redirect(url_for('clients'))
+
+
 @app.route('/jobs', methods=['GET'])
 def jobs():
     jobs=Job.query.all()
     data=[]
     for job in jobs:
         data.append({
+        "job_id": id,
         "client_id": job.client.id,
         "client_name": job.client.name,
         "client_address": job.client.address,
@@ -195,10 +242,61 @@ def jobs():
 
     return render_template('pages/jobs.html', jobs=data)
 
+
+@app.route('/jobs/<int:job_id>')
+def show_job(job_id):
+    job = Job.query.get(job_id)
+
+    if not job:
+        return redirect(url_for('index'))
+
+    else:
+
+        data={
+        "id": job_id,
+        "client": job.client.name,
+        "address": job.client.address,
+        "phone": job.client.phone,
+        "contractor": job.contractor.name,
+        "start_time": format_datetime(str(job.start_time))
+        }
+
+    print(data)
+
+    return render_template('pages/show_jobs.html', job=data)
+
 @app.route('/jobs/create', methods=['GET'])
 def add_job_form():
   form = JobForm()
   return render_template('forms/new_job.html', form=form)
+
+
+@app.route('/jobs/create', methods=['POST'])
+def create_job():
+
+    form= JobForm()
+
+    contractor_id = form.contractor_id.data.strip()
+    client_id = form.client_id.data.strip()
+    start_time = form.start_time.data
+
+    insert_error=False
+
+    try:
+        new_job = Job(start_time=start_time, contractor_id=contractor_id, client_id=client_id)
+        db.session.add(new_job)
+        db.session.commit()
+    except:
+        insert_error=true
+        print(f'Exception "{e}" in create_job')
+        db.session.rollback()
+    finally:
+        db.session.close()
+    if insert_error:
+
+        print("Error in create_show_submission")
+    else:
+        return redirect(url_for('jobs'))
 
 
 if __name__ == '__main__':
