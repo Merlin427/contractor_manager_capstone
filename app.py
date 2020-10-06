@@ -132,6 +132,58 @@ def delete_contractor(contractor_id):
         return redirect(url_for('contractors'))
 
 
+@app.route('/contractors/<int:contractor_id>/edit', methods=['GET'])
+def edit_contractor(contractor_id):
+
+    contractor= Contractor.query.get(contractor_id)
+
+    if not contractor:
+        return redirect(url_for('index'))
+
+    else:
+        form = ContractorForm(obj=contractor)
+
+    contractor = {
+        "id": contractor.id,
+        "name": contractor.name,
+        "phone": contractor.phone
+    }
+    return render_template('forms/edit_contractor.html', form=form, contractor=contractor)
+
+
+
+@app.route('/contractors/<int:contractor_id>/edit', methods=['POST'])
+def edit_contractor_submission(contractor_id):
+    form = ContractorForm(request.form, meta={"csrf": False})
+
+    name = form.name.data.strip()
+    phone = form.phone.data.strip()
+
+    if not form.validate():
+        abort(404)
+
+    else:
+        update_error = False
+        try:
+            contractor=Contractor.query.get(contractor_id)
+            contractor.name = name
+            contractor.phone = phone
+
+
+            db.session.commit()
+
+        except Exception as e:
+            update_error = True
+            print(f'Exception "{e}" in add_contractor()')
+            db.session.rollback()
+        finally:
+            db.session.close()
+
+        if not update_error:
+            return redirect(url_for('contractors'))
+
+
+
 
 @app.route('/clients', methods=['GET'])
 def clients():
@@ -286,7 +338,7 @@ def create_job():
         new_job = Job(start_time=start_time, contractor_id=contractor_id, client_id=client_id)
         db.session.add(new_job)
         db.session.commit()
-    except:
+    except Exception as e:
         insert_error=true
         print(f'Exception "{e}" in create_job')
         db.session.rollback()
