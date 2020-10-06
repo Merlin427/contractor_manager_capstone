@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, abort, jsonify, render_template
+from flask import Flask, request, abort, jsonify, render_template, redirect, url_for, abort
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from flask_migrate import Migrate
@@ -76,6 +76,40 @@ def add_contractor_form():
   form = ContractorForm()
   return render_template('forms/new_contractor.html', form=form)
 
+
+
+@app.route('/contractors/create', methods=['POST'])
+def add_contractor():
+
+    form = ContractorForm(request.form, meta={"csrf": False})
+
+    name = form.name.data.strip()
+    phone = form.phone.data.strip()
+
+    if not form.validate():
+        abort(404)
+
+    else:
+        insert_error = False
+        try:
+
+            new_contractor = Contractor(name=name, phone=phone)
+
+            db.session.add(new_contractor)
+            db.session.commit()
+
+        except Exception as e:
+            insert_error = True
+            print(f'Exception "{e}" in add_contractor()')
+            db.session.rollback()
+        finally:
+            db.session.close()
+
+        if not insert_error:
+            return redirect(url_for('contractors'))
+
+
+
 @app.route('/clients', methods=['GET'])
 def clients():
     clients=Client.query.all()
@@ -112,6 +146,38 @@ def show_client(client_id):
 def add_client_form():
   form = ClientForm()
   return render_template('forms/new_client.html', form=form)
+
+
+@app.route('/clients/create', methods=['POST'])
+def add_client():
+
+    form = ClientForm(request.form, meta={"csrf": False})
+
+    name = form.name.data.strip()
+    phone = form.phone.data.strip()
+    address = form.phone.data.strip()
+
+    if not form.validate():
+        abort(404)
+
+    else:
+        insert_error = False
+        try:
+
+            new_client = Client(name=name, phone=phone, address=address)
+
+            db.session.add(new_client)
+            db.session.commit()
+
+        except Exception as e:
+            insert_error = True
+            print(f'Exception "{e}" in add_client()')
+            db.session.rollback()
+        finally:
+            db.session.close()
+
+        if not insert_error:
+            return redirect(url_for('clients'))
 
 
 @app.route('/jobs', methods=['GET'])
