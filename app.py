@@ -346,6 +346,7 @@ def jobs():
         "start_time": format_datetime(str(job.start_time))
         })
 
+    print(data)
     return render_template('pages/jobs.html', jobs=data)
 
 
@@ -403,6 +404,61 @@ def create_job():
         print("Error in create_show_submission")
     else:
         return redirect(url_for('jobs'))
+
+
+@app.route('/jobs/<int:job_id>/edit', methods=['GET'])
+def edit_job(job_id):
+
+    job= Job.query.get(job_id)
+
+    if not job:
+        return redirect(url_for('index'))
+
+    else:
+        form = JobForm(obj=job)
+
+    job = {
+        "id": job.id,
+        "client_id": job.client.id,
+        "contractor_id": job.contractor.id
+
+    }
+    return render_template('forms/edit_job.html', form=form, job=job)
+
+
+
+@app.route('/jobs/<int:job_id>/edit', methods=['POST'])
+def edit_job_submission(job_id):
+    form = JobForm(request.form, meta={"csrf": False})
+
+    contractor_id = form.contractor_id.data.strip()
+    client_id = form.client_id.data.strip()
+    start_time = form.start_time.data
+
+    if not form.validate():
+        abort(404)
+
+    else:
+        update_error = False
+        try:
+            job=Job.query.get(job_id)
+            job.client_id = client_id
+            job.contractor_id = contractor_id
+            job.start_time = start_time
+
+
+
+            db.session.commit()
+
+        except Exception as e:
+            update_error = True
+            print(f'Exception "{e}" in edit_job_submission()')
+            db.session.rollback()
+        finally:
+            db.session.close()
+
+        if not update_error:
+            return redirect(url_for('jobs'))
 
 
 if __name__ == '__main__':
