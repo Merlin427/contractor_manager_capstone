@@ -1,11 +1,11 @@
-{% block title %}{{ job.client.name }} | Client{% endblock %}
+{% block title %}{{ client }} | Client{% endblock %}
 {% block content %}
 
 <h1>
-  {{ job.client.name }}
+  {{ job.client }}
 </h1>
 <p>
-  ID: {{ job.client.id }}
+  ID: {{ job.id }}
 </p>
 <p>
   PHONE: {{ job.client.phone }}
@@ -14,7 +14,7 @@
   ADDRESS: {{ job.client.address }}
 </p>
 <p>
-  CONTRACTOR: {{ job.contractor.name }}
+  CONTRACTOR: {{ job.contractor }}
 </p>
 <p>
   APPOINTMENT: {{ job.start_time }}

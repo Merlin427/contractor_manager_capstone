@@ -338,7 +338,7 @@ def jobs():
     data=[]
     for job in jobs:
         data.append({
-        "job_id": id,
+        "job_id": job.id,
         "client_id": job.client.id,
         "client_name": job.client.name,
         "client_address": job.client.address,
@@ -349,7 +349,7 @@ def jobs():
     return render_template('pages/jobs.html', jobs=data)
 
 
-@app.route('/jobs/<int:job_id>')
+@app.route('/jobs/<int:job_id>', methods=['GET'])
 def show_job(job_id):
     job = Job.query.get(job_id)
 
