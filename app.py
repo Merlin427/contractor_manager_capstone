@@ -323,7 +323,7 @@ def edit_client_submission(client_id):
 
         except Exception as e:
             update_error = True
-            print(f'Exception "{e}" in add_client()')
+            print(f'Exception "{e}" in add_client_submission()')
             db.session.rollback()
         finally:
             db.session.close()
@@ -401,7 +401,7 @@ def create_job():
         db.session.close()
     if insert_error:
 
-        print("Error in create_show_submission")
+        print("Error in create_job")
     else:
         return redirect(url_for('jobs'))
 
@@ -459,6 +459,29 @@ def edit_job_submission(job_id):
 
         if not update_error:
             return redirect(url_for('jobs'))
+
+
+@app.route('/jobs/<int:job_id>/delete', methods=['GET'])
+def delete_job(job_id):
+    error = False
+    job = Job.query.get(job_id)
+
+    try:
+        db.session.delete(job)
+        db.session.commit()
+    except:
+        db.session.rollback()
+        error = True
+
+    finally:
+        db.session.close()
+
+    if error:
+        print("error in delete_job")
+        abort(500)
+
+    else:
+        return redirect(url_for('jobs'))
 
 
 if __name__ == '__main__':
