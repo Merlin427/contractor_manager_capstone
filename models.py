@@ -43,4 +43,4 @@ class Job(db.Model): #New model for shows
 
 
     def __repr__(self):
-        return f'<job {self.id} {self.start_time} contractor_id={contractor_id} client_id={client_id}>'
+        return f'<job {self.id} {self.start_time} contractor_id={self.contractor_id} client_id={self.client_id}>'

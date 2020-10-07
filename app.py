@@ -195,6 +195,7 @@ def clients():
         "name": client.name
         })
 
+    print(data)
     return render_template('pages/clients.html', clients=data)
 
 
@@ -213,6 +214,7 @@ def show_client(client_id):
         "phone": client.phone,
         "address": client.address
         }
+
 
     return render_template('pages/show_clients.html', client=data)
 
@@ -338,7 +340,7 @@ def jobs():
     data=[]
     for job in jobs:
         data.append({
-        "job_id": job.id,
+        "id": job.id,
         "client_id": job.client.id,
         "client_name": job.client.name,
         "client_address": job.client.address,
@@ -394,7 +396,7 @@ def create_job():
         db.session.add(new_job)
         db.session.commit()
     except Exception as e:
-        insert_error=true
+        insert_error=True
         print(f'Exception "{e}" in create_job')
         db.session.rollback()
     finally:
