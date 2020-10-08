@@ -1,5 +1,8 @@
+#----------------------------------------------------------------------------#
+# Imports
+#----------------------------------------------------------------------------#
 import os
-from flask import Flask, request, abort, jsonify, render_template, redirect, url_for, abort
+from flask import Flask, request, abort, jsonify, render_template, redirect, url_for, abort, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from flask_migrate import Migrate
@@ -13,7 +16,9 @@ from forms import *
 
 from models import *
 
-
+#----------------------------------------------------------------------------#
+# App Config
+#----------------------------------------------------------------------------#
 app = Flask(__name__)
 moment = Moment(app)
 app.config.from_object('config')
@@ -21,7 +26,9 @@ db.init_app(app)
 CORS(app)
 migrate = Migrate(app, db)
 
-
+#----------------------------------------------------------------------------#
+# Filters (From Fyyur Project)
+#----------------------------------------------------------------------------#
 def format_datetime(value, format='medium'):
   date = dateutil.parser.parse(value)
   if format == 'full':
@@ -32,7 +39,9 @@ def format_datetime(value, format='medium'):
 
 app.jinja_env.filters['datetime'] = format_datetime
 
-
+#----------------------------------------------------------------------------#
+# Controllers
+#----------------------------------------------------------------------------#
 
 @app.route('/')
 def index():
@@ -485,6 +494,59 @@ def delete_job(job_id):
     else:
         return redirect(url_for('jobs'))
 
+#----------------------------------------------------------------------------#
+# Error Handlers
+#----------------------------------------------------------------------------#
+
+@app.errorhandler(422)
+def unprocessable(error):
+    return jsonify({
+                    "success": False,
+                    "error": 422,
+                    "message": "unprocessable"
+                    }), 422
+
+
+@app.errorhandler(400)
+def bad_request(error):
+    return jsonify({
+        "success": False,
+        "error": 400,
+        "message": 'Bad Request'
+    }), 400
+
+@app.errorhandler(401)
+def unauthorised(error):
+    return jsonify({
+        "success": False,
+        "error": 401,
+        "message": 'Unauthorised'
+    }), 401
+
+@app.errorhandler(404)
+def not_found(error):
+    return jsonify({
+        "success": False,
+        "error": 404,
+        "message": 'Not Found'
+    }), 404
+
+@app.errorhandler(500)
+def internal_server_error(error):
+    return jsonify({
+        "success": False,
+        "error": 500,
+        "message": 'Internal Server Error'
+    }), 500
+'''
+@app.errorhandler(AuthError)
+def auth_error(error):
+    return jsonify({
+        "success": False,
+        "error": error.status_code,
+        "message": error.error['description']
+    }), 401
+'''
 
 if __name__ == '__main__':
     APP.run(host='0.0.0.0', port=8080, debug=True)
