@@ -36,7 +36,7 @@ AUTH0_CLIENT_ID = 'zWJfWgsOelcUY1yYwupvofc2oCr7JO52'
 AUTH0_CLIENT_SECRET = 'YBV-ywAAlOWdLmJQaokgRJqeIdIEfmfINcqYkRpDliy9SojmXCxZ1VEjT3yTb-6p'
 AUTH0_CALLBACK_URL = 'http://localhost:5000/callback'
 AUTH0_DOMAIN = 'dvcoffee.us.auth0.com'
-AUTH0_AUDIENCE = 'http://localhost:4000'
+AUTH0_AUDIENCE = 'http://localhost:5000'
 PROFILE_KEY = 'profile'
 SECRET_KEY = 'YBV-ywAAlOWdLmJQaokgRJqeIdIEfmfINcqYkRpDliy9SojmXCxZ1VEjT3yTb-6p'
 JWT_PAYLOAD = 'jwt_payload'
@@ -114,11 +114,13 @@ def dashboard():
 
 
 @app.route('/home')
-def home():
+@requires_auth('get:anything')
+def home(payload):
     return render_template('pages/home.html')
 
 @app.route('/contractors', methods=['GET'])
-def contractors():
+@requires_auth('get:anything')
+def contractors(payload):
     contractors=Contractor.query.all()
     data=[]
     for contractor in contractors:
@@ -132,7 +134,8 @@ def contractors():
 
 
 @app.route('/contractors/<int:contractor_id>')
-def show_contractor(contractor_id):
+@requires_auth('get:anything')
+def show_contractor(payload, contractor_id):
     contractor = Contractor.query.get(contractor_id)
 
     if not contractor:
@@ -156,7 +159,8 @@ def add_contractor_form():
 
 
 @app.route('/contractors/create', methods=['POST'])
-def add_contractor():
+@requires_auth('post:anything')
+def add_contractor(payload):
 
     form = ContractorForm(request.form, meta={"csrf": False})
 
@@ -187,7 +191,8 @@ def add_contractor():
 
 
 @app.route('/contractors/<int:contractor_id>/delete', methods=['GET'])
-def delete_contractor(contractor_id):
+@requires_auth('delete:anything')
+def delete_contractor(payload, contractor_id):
     error = False
     contractor = Contractor.query.get(contractor_id)
 
@@ -210,7 +215,8 @@ def delete_contractor(contractor_id):
 
 
 @app.route('/contractors/<int:contractor_id>/edit', methods=['GET'])
-def edit_contractor(contractor_id):
+@requires_auth('get:anything')
+def edit_contractor(payload, contractor_id):
 
     contractor= Contractor.query.get(contractor_id)
 
@@ -230,7 +236,8 @@ def edit_contractor(contractor_id):
 
 
 @app.route('/contractors/<int:contractor_id>/edit', methods=['POST'])
-def edit_contractor_submission(contractor_id):
+@requires_auth('patch:anything')
+def edit_contractor_submission(payload,contractor_id):
     form = ContractorForm(request.form, meta={"csrf": False})
 
     name = form.name.data.strip()
@@ -263,7 +270,8 @@ def edit_contractor_submission(contractor_id):
 
 
 @app.route('/clients', methods=['GET'])
-def clients():
+@requires_auth('get:anything')
+def clients(payload):
     clients=Client.query.all()
     data=[]
     for client in clients:
@@ -277,7 +285,8 @@ def clients():
 
 
 @app.route('/clients/<int:client_id>')
-def show_client(client_id):
+@requires_auth('get:anything')
+def show_client(payload, client_id):
     client = Client.query.get(client_id)
 
     if not client:
@@ -303,7 +312,8 @@ def add_client_form():
 
 
 @app.route('/clients/create', methods=['POST'])
-def add_client():
+@requires_auth('post:anything')
+def add_client(payload):
 
     form = ClientForm(request.form, meta={"csrf": False})
 
@@ -335,7 +345,8 @@ def add_client():
 
 
 @app.route('/clients/<int:client_id>/delete', methods=['GET'])
-def delete_client(client_id):
+@requires_auth('delete:anything')
+def delete_client(payload, client_id):
     error = False
     client = Client.query.get(client_id)
 
@@ -379,7 +390,8 @@ def edit_client(client_id):
 
 
 @app.route('/clients/<int:client_id>/edit', methods=['POST'])
-def edit_client_submission(client_id):
+@requires_auth('patch:anything')
+def edit_client_submission(payload, client_id):
     form = ClientForm(request.form, meta={"csrf": False})
 
     name = form.name.data.strip()
@@ -412,7 +424,8 @@ def edit_client_submission(client_id):
 
 
 @app.route('/jobs', methods=['GET'])
-def jobs():
+@requires_auth('get:anything')
+def jobs(payload):
     jobs=Job.query.all()
     data=[]
     for job in jobs:
@@ -430,7 +443,8 @@ def jobs():
 
 
 @app.route('/jobs/<int:job_id>', methods=['GET'])
-def show_job(job_id):
+@requires_auth('get:anything')
+def show_job(payload, job_id):
     job = Job.query.get(job_id)
 
     if not job:
@@ -458,7 +472,8 @@ def add_job_form():
 
 
 @app.route('/jobs/create', methods=['POST'])
-def create_job():
+@requires_auth('post:anything')
+def create_job(payload):
 
     form= JobForm()
 
@@ -507,7 +522,8 @@ def edit_job(job_id):
 
 
 @app.route('/jobs/<int:job_id>/edit', methods=['POST'])
-def edit_job_submission(job_id):
+@requires_auth('patch:anything')
+def edit_job_submission(payload, job_id):
     form = JobForm(request.form, meta={"csrf": False})
 
     contractor_id = form.contractor_id.data.strip()
@@ -541,7 +557,8 @@ def edit_job_submission(job_id):
 
 
 @app.route('/jobs/<int:job_id>/delete', methods=['GET'])
-def delete_job(job_id):
+@requires_auth('delte:anything')
+def delete_job(payload, job_id):
     error = False
     job = Job.query.get(job_id)
 
