@@ -20,6 +20,12 @@ class AuthError(Exception):
         self.status_code = status_code
 
 
+
+
+
+
+
+
 ## Auth Header
 # Some code used from the BasicFlaskAuth project
 

@@ -17,7 +17,7 @@ from authlib.integrations.flask_client import OAuth
 from six.moves.urllib.parse import urlencode
 import json
 from functools import wraps
-
+import http.client
 from auth.auth import AuthError, requires_auth
 from models import *
 import constants
@@ -95,7 +95,10 @@ def logout():
 def callback_handling():
     auth0.authorize_access_token()
     resp = auth0.get('userinfo')
+
+
     userinfo = resp.json()
+    print(userinfo)
 
     session[constants.JWT_PAYLOAD] = userinfo
     session[constants.PROFILE_KEY] = {
@@ -103,11 +106,14 @@ def callback_handling():
         'name': userinfo['name'],
         'picture': userinfo['picture']
     }
+
     return redirect('/dashboard')
+
 
 
 @app.route('/dashboard')
 def dashboard():
+
     return render_template('pages/dashboard.html')
 
 
@@ -116,6 +122,7 @@ def dashboard():
 @app.route('/home')
 @requires_auth('get:anything')
 def home(payload):
+
     return render_template('pages/home.html')
 
 @app.route('/contractors', methods=['GET'])
