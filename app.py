@@ -21,6 +21,7 @@ import http.client
 from auth.auth import AuthError, requires_auth
 from models import *
 import constants
+
 #----------------------------------------------------------------------------#
 # App Config
 #----------------------------------------------------------------------------#
@@ -98,7 +99,7 @@ def callback_handling():
 
 
     userinfo = resp.json()
-    print(userinfo)
+
 
     session[constants.JWT_PAYLOAD] = userinfo
     session[constants.PROFILE_KEY] = {
@@ -108,6 +109,9 @@ def callback_handling():
     }
 
     return redirect('/dashboard')
+
+
+
 
 
 
