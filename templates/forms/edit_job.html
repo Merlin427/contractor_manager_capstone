@@ -1,26 +1,24 @@
-{% block title %}Edit Job{% endblock %}
+<title>Cotractor Pro</title>
+<link rel="stylesheet" href="/static/css/main.css">
 
-{% block content %}
-
-<div >
+<div class='box' align=center>
   <form class="" method="post">
-    <h3>Edit Job</h3>
-    <p>
+    <h1 class='heading_h1'>Edit Job</h1>
+    <p class ='par'>
       {{form.client_id.label}} <br>
       {{form.client_id(size=30)}}
     </p>
-    <p>
+    <p class='par'>
       {{form.contractor_id.label}} <br>
       {{form.contractor_id(size=30)}}
     </p>
-    <p>
+    <p class='par'>
       {{form.start_time.label}} <br>
       {{form.start_time(size=30)}}
     </p>
-    <input type="submit" value="Edit Job">
+    <input type="submit" class='smallbutton' value="Edit Job">
 
   </form>
 </div>
 
-{% endblock %}
-<a href="/home">Home</a>
+<a href="/">Home</a>

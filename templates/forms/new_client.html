@@ -1,26 +1,25 @@
-{% block title %}New Client{% endblock %}
+<title>Cotractor Pro</title>
+<link rel="stylesheet" href="/static/css/main.css">
 
-{% block content %}
-
-<div >
+<div class='box' align=center>
   <form class="" method="post">
-    <h3>Add a new client</h3>
-    <p>
+    <h1 class='heading_h1'>Add a new client</h1>
+    <p class='par'>
       {{form.name.label}} <br>
-      {{form.name(size=30)}}
+      {{form.name(size=50)}}
     </p>
-    <p>
+    <p class='par'>
       {{form.address.label}} <br>
-      {{form.address(size=120)}}
+      {{form.address(size=50)}}
     </p>
-    <p>
+    <p class='par'>
       {{form.phone.label}} <br>
-      {{form.phone(size=30)}}
+      {{form.phone(size=50)}}
     </p>
-    <input type="submit" value="Add Client">
+    <input type="submit" class='smallbutton' value="Add Client">
 
   </form>
 </div>
 
-{% endblock %}
-<a href="/home">Home</a>
+
+<a href="/">Home</a>

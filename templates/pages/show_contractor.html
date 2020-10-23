@@ -1,19 +1,21 @@
-{% block title %}{{ contractor.name }} | Contractor{% endblock %}
-{% block content %}
+<title>Cotractor Pro</title>
+<link rel="stylesheet" href="/static/css/main.css">
+<div class="box" align=center >
 
-<h1>
+
+<h1 class='heading_h1'>
   {{ contractor.name }}
 </h1>
-<p>
+<p class='par'>
   ID: {{ contractor.id }}
 </p>
-<p>
+<p class='par'>
   PHONE: {{ contractor.phone }}
 </p>
-{% endblock %}
-<div>
-  <a href="/contractors/{{ contractor.id }}/edit"><button type="button" name="Edit contractor">Edit contracotor</button></a>
-  <a href="/contractors/{{ contractor.id }}/delete"><button type="button" name="Delete contractor">Delete contracotor</button></a>
+</div>
+<div class='box' align=center>
+  <a href="/contractors/{{ contractor.id }}/edit"><button class='smallbutton' type="button" name="Edit contractor">Edit contracotor</button></a>
+  <a href="/contractors/{{ contractor.id }}/delete"><button class='smallbutton' type="button" name="Delete contractor">Delete contracotor</button></a>
 </div>
 
 <a href="/home">Home</a>

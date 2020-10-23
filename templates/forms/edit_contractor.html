@@ -1,22 +1,21 @@
-{% block title %}Edit Contractor{% endblock %}
+<title>Cotractor Pro</title>
+<link rel="stylesheet" href="/static/css/main.css">
 
-{% block content %}
-
-<div >
+<div class='box' align=center>
   <form class="" method="post">
-    <h3>Edit contractor</h3>
-    <p>
+    <h1 class=heading_h1>Edit contractor</h1>
+    <p class='par'>
       {{form.name.label}} <br>
       {{form.name(size=30)}}
     </p>
-    <p>
+    <p class='par'>
       {{form.phone.label}} <br>
       {{form.phone(size=30)}}
     </p>
-    <input type="submit" value="Edit Contractor">
+    <input class='smallbutton' type="submit" value="Edit Contractor">
 
   </form>
 </div>
 
-{% endblock %}
-<a href="/home">Home</a>
+
+<a href="/">Home</a>

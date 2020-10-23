@@ -1,9 +1,11 @@
-<h3>Clients</h3>
-<ul>
+<title>Cotractor Pro</title>
+<link rel="stylesheet" href="/static/css/main.css">
+<h1 class='heading_h1'>Clients</h1>
+<ul align=center>
   {% for client in clients %}
-  <li>
+  <li class='list'>
     <a href="/clients/{{ client.id }}">
-      <h5>{{ client.name }}</h5>
+      <h5 class='heading_h5'>{{ client.name }}</h5>
     </a>
   </li>
   {% endfor %}

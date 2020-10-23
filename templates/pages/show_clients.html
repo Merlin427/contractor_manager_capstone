@@ -1,22 +1,25 @@
-{% block title %}{{ client.name }} | Client{% endblock %}
-{% block content %}
+<title>Cotractor Pro</title>
+<link rel="stylesheet" href="/static/css/main.css">
+<div class="box" align=center>
 
-<h1>
+
+<h1 class='heading_h1'>
   {{ client.name }}
 </h1>
-<p>
+<p class='par'>
   ID: {{ client.id }}
 </p>
-<p>
+<p class='par'>
   PHONE: {{ client.phone }}
 </p>
-<p>
+<p class='par'>
   ADDRESS: {{ client.address }}
 </p>
-<div>
-  <a href="/clients/{{ client.id }}/edit"><button type="button" name="Edit client">Edit Client</button></a>
-  <a href="/clients/{{ client.id }}/delete"><button type="button" name="Delete client">Delete Client</button></a>
+</div>
+<div class='box' align=center>
+  <a href="/clients/{{ client.id }}/edit"><button class='smallbutton' type="button" name="Edit client">Edit Client</button></a>
+  <a href="/clients/{{ client.id }}/delete"><button class='smallbutton' type="button" name="Delete client">Delete Client</button></a>
 
 </div>
-{% endblock %}
+
 <a href="/home">Home</a>

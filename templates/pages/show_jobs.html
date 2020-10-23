@@ -1,28 +1,28 @@
-{% block title %}{{ client }} | Client{% endblock %}
-{% block content %}
+<title>Cotractor Pro</title>
+<link rel="stylesheet" href="/static/css/main.css">
 
-<h1>
+<h1 class='heading_h1'>
   {{ job.client }}
 </h1>
-<p>
+<p class='par'>
   ID: {{ job.id }}
 </p>
-<p>
+<p class='par'>
   PHONE: {{ job.phone }}
 </p>
-<p>
+<p class='par'>
   ADDRESS: {{ job.address }}
 </p>
-<p>
+<p class='par'>
   CONTRACTOR: {{ job.contractor }}
 </p>
-<p>
+<p class='par'>
   APPOINTMENT: {{ job.start_time }}
 </p>
-<div>
-  <a href="/jobs/{{ job.id }}/edit"><button type="button" name="Edit job">Edit Job</button></a>
-  <a href="/jobs/{{ job.id }}/delete"><button type="button" name="Delete job">Delete Job</button></a>
+<div class='box' align=center>
+  <a href="/jobs/{{ job.id }}/edit"><button type="button" class='smallbutton' name="Edit job">Edit Job</button></a>
+  <a href="/jobs/{{ job.id }}/delete"><button type="button" class='smallbutton' name="Delete job">Delete Job</button></a>
 
 </div>
-{% endblock %}
+
 <a href="/home">Home</a>

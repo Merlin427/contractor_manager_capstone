@@ -1,11 +1,91 @@
+@charset "UTF-8";
+
+
 body {
-  background: #efefef;
+  background: #241E1C;
   font-family: arial;
+  text-decoration-color: #0483FB;
+
+}
+
+.blue {
+  color: blue;
+
 }
 
 .btn-default {
-    border: none;
-    background-color: #dde2e7;
-    background-image: linear-gradient(#dde2e7,#dde2e7);
-    color: #444;
+border: 5px;
+color: white;
+padding: 15px 32px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 16px;
+margin: 4px 2px;
+cursor: pointer;
+align: center;
+}
+
+.heading_h1 {
+  text-align: center;
+  color: #0483FB;
+  font-family: poppins;
+}
+
+.heading_h3 {
+  text-align: : center;
+  align: center;
+  color: #0483FB;
+}
+
+.heading_h5 {
+  text-align: center;
+  color: #0483FB;
+}
+
+.par {
+  text-align: center;
+  color: #0483FB;
+}
+
+.list {
+  font-size: 25px;
+  text-align: center;
+}
+.form {
+  background-color: #D0CDD0
+}
+.button
+{
+  position: relative;
+  text-align: center;
+  width: 250px;
+  height: 120px;
+  padding: 30px;
+  font-size: 15px;
+  color: #0483FB;
+  font-family: poppins;
+  font-weight: 200;
+  border: 5px solid #0483FB;
+  text-transform: uppercase;
+  letter-spacing: 8px;
+  cursor: pointer;
+  border-radius: 100px;
+  transition: 1.5s;
+  background-color: #423D3C;
+
+}
+
+.smallbutton {
+  background-color: #423D3C;
+  text-align: center;
+  color: #0483FB;
+}
+
+.bt_div {
+  width: 300px;
+  height: 100px;
+  text-align: center;
+  padding: 50px;
+  margin: 20px;
 }

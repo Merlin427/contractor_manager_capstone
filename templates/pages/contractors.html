@@ -1,13 +1,13 @@
 <title>Cotractor Pro</title>
 <link rel="stylesheet" href="/static/css/main.css">
-<h3>Available contractors</h3>
-<ul>
+<h1 class='heading_h1'>Available Contractors</h1>
+<ul align=center>
   {% for contractor in contractors %}
-  <li>
+  <li class='list'>
     <a href="/contractors/{{ contractor.id }}">
-      <h5>{{ contractor.name }}</h5>
+      <h5 class= 'heading_h5'>{{ contractor.name }}</h5>
     </a>
   </li>
   {% endfor %}
 </ul>
-<a href="/home">Home</a>
+<a color=#0483FB href="/home">Home</a>

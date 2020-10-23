@@ -3,26 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Contractor Pro</title>
-    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/main.css" type="text/css">
 </head>
 <body>
-    <h1>Contractor Pro</h1>
+    <h1 class='heading_h1'>Contractor Pro</h1>
 
 
-    <div>
-      <a href="/contractors"><button type="button" name="See Contractors">See Contractors</button></a>
-      <a href="/clients"><button type="button" name="See Clients">See Clients</button></a>
-      <a href="/jobs"><button type="button" name="See Jobs">See Jobs</button></a>
-
-    </div>
-    <div>
-      <a href="/contractors/create"><button type="button" name="Add Contractors">Add Contractors</button></a>
-      <a href="/clients/create"><button type="button" name="Add Clients">Add Clients</button></a>
-      <a href="/jobs/create"><button type="button" name="Schedule Jobs">Schedule Jobs</button></a>
+    <div class='box' align=center height=150px padding=20px>
+      <a href="/contractors"><button class='button' type="button" name="See Contractors">See Contractors</button></a>
+      <a href="/clients"><button class='button' type="button" name="See Clients">See Clients</button></a>
+      <a href="/jobs"><button class='button' type="button" name="See Jobs">See Jobs</button></a>
+      </div>
+    <div class='box' align=center height=50px>
 
     </div>
-    <div>
-      <a class="btn btn-primary btn-lg btn-logout btn-block" href="/logout">Logout</a
+
+      <div class='box' align=center height=150px padding=20px>
+      <a href="/contractors/create"><button class='button' type="button" name="Add Contractors">Add Contractors</button></a>
+      <a href="/clients/create"><button class='button' type="button" name="Add Clients">Add Clients</button></a>
+      <a href="/jobs/create"><button class='button' type="button" name="Schedule Jobs">Schedule Jobs</button></a>
+
+    </div>
+    <div class='bt_div'>
+      <button type="button" class='smallbutton' name="button"><a color=#0483FB href="/logout">Logout</a</button>
+
     </div>
 
 </body>
