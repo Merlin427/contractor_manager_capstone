@@ -32,6 +32,8 @@ db.init_app(app)
 CORS(app)
 migrate = Migrate(app, db)
 
+from functools import wraps
+
 
 AUTH0_CLIENT_ID = 'zWJfWgsOelcUY1yYwupvofc2oCr7JO52'
 AUTH0_CLIENT_SECRET = 'YBV-ywAAlOWdLmJQaokgRJqeIdIEfmfINcqYkRpDliy9SojmXCxZ1VEjT3yTb-6p'
@@ -94,19 +96,23 @@ def logout():
 
 @app.route('/callback')
 def callback_handling():
+    #import pdb; pdb.set_trace()
     auth0.authorize_access_token()
     resp = auth0.get('userinfo')
 
 
     userinfo = resp.json()
+    print(userinfo)
 
 
     session[constants.JWT_PAYLOAD] = userinfo
-    session[constants.PROFILE_KEY] = {
+    session['profile'] = {
         'user_id': userinfo['sub'],
         'name': userinfo['name'],
         'picture': userinfo['picture']
     }
+    session['auth'] = auth0.token
+    print(session['profile'])
 
     return redirect('/dashboard')
 
@@ -116,7 +122,9 @@ def callback_handling():
 
 
 @app.route('/dashboard')
-def dashboard():
+@requires_auth('get:anything')
+def dashboard(payload):
+    print(session, 'auth' in session)
 
     return render_template('pages/dashboard.html')
 
@@ -568,7 +576,7 @@ def edit_job_submission(payload, job_id):
 
 
 @app.route('/jobs/<int:job_id>/delete', methods=['GET'])
-@requires_auth('delte:anything')
+@requires_auth('delete:anything')
 def delete_job(payload, job_id):
     error = False
     job = Job.query.get(job_id)

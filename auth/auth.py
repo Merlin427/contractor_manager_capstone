@@ -1,5 +1,5 @@
 import json
-from flask import request, _request_ctx_stack
+from flask import request, _request_ctx_stack, session, redirect
 from functools import wraps
 from jose import jwt
 from urllib.request import urlopen
@@ -137,10 +137,17 @@ def requires_auth(permission=''):
     def requires_auth_decorator(f):
         @wraps(f)
         def wrapper(*args, **kwargs):
-            token = get_token_auth_header()
-            payload = verify_decode_jwt(token)
-            check_permissions(permission, payload)
-            return f(payload, *args, **kwargs)
+            if 'auth' in session:
+                #token = get_token_auth_header()
+                payload = verify_decode_jwt(session['auth']['access_token'])
+                ret = check_permissions(permission, payload)
+                print(ret)
+                if ret:
+                    return f({}, *args, **kwargs)
+            #import pdb; pdb.set_trace()
+            #if 'profile' in session:
+            #    return f({}, *args, **kwargs)
+            return f(redirect('login'))
 
         return wrapper
     return requires_auth_decorator
