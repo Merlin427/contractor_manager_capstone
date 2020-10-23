@@ -3,11 +3,15 @@
 <h1 class='heading_h1'>Available Contractors</h1>
 <ul align=center>
   {% for contractor in contractors %}
-  <li class='list'>
+  <li class='list' >
     <a href="/contractors/{{ contractor.id }}">
       <h5 class= 'heading_h5'>{{ contractor.name }}</h5>
     </a>
   </li>
   {% endfor %}
 </ul>
-<a color=#0483FB href="/home">Home</a>
+<div align=center>
+  <button type="button" class='smallbutton' name="button">
+    <a class='smallbutton' href="/home">Home</a>
+  </button>
+</div>
