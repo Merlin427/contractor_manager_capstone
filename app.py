@@ -147,6 +147,7 @@ def contractors(payload):
         "id": contractor.id,
         "name": contractor.name
         })
+        print(data)
 
     return render_template('pages/contractors.html', contractors=data)
 
@@ -642,7 +643,7 @@ def internal_server_error(error):
         "error": 500,
         "message": 'Internal Server Error'
     }), 500
-'''
+
 @app.errorhandler(AuthError)
 def auth_error(error):
     return jsonify({
@@ -650,7 +651,6 @@ def auth_error(error):
         "error": error.status_code,
         "message": error.error['description']
     }), 401
-'''
 
 if __name__ == '__main__':
     APP.run(host='0.0.0.0', port=8080, debug=True)

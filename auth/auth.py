@@ -1,8 +1,9 @@
 import json
-from flask import request, _request_ctx_stack, session, redirect
+from flask import request, _request_ctx_stack, session, redirect, render_template
 from functools import wraps
 from jose import jwt
 from urllib.request import urlopen
+
 
 
 AUTH0_DOMAIN = 'dvcoffee.us.auth0.com'
@@ -18,12 +19,6 @@ class AuthError(Exception):
     def __init__(self, error, status_code):
         self.error = error
         self.status_code = status_code
-
-
-
-
-
-
 
 
 ## Auth Header
@@ -73,9 +68,10 @@ def check_permissions(permission, payload):
     if permission not in payload['permissions']:
         raise AuthError({
         'code': 'unauthorised',
-        'description': 'Permission not found'
+        'description': 'Permission not found here'
 
         }, 401 )
+
     return True
 
 
